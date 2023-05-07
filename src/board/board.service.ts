@@ -19,4 +19,8 @@ export class BoardService {
     const savedBoard = await this.boardRepository.save(board);
     return savedBoard;
   }
+
+  async getAll() {
+    return await this.boardRepository.find();
+  }
 }

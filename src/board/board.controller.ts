@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardRequestDto } from './dto/createBoard.request.dto';
 
@@ -9,5 +9,10 @@ export class BoardController {
   @Post()
   async create(@Body() createBoardRequestDto: CreateBoardRequestDto) {
     return await this.boardService.create(createBoardRequestDto);
+  }
+
+  @Get()
+  async getAll() {
+    return await this.boardService.getAll();
   }
 }
