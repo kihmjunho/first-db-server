@@ -23,4 +23,8 @@ export class BoardService {
   async getAll() {
     return await this.boardRepository.find();
   }
+
+  getDetail(id: number | null): Promise<Board> {
+    return this.boardRepository.findOneBy({ id });
+  }
 }
