@@ -41,7 +41,10 @@ export class BoardService {
     if (description) {
       board.description = description;
     }
-    const updatedBoard = await this.boardRepository.save(board);
+    let updatedBoard;
+    await this.boardRepository.manager.transaction(async (manager) => {
+      updatedBoard = await manager.save(board);
+    });
     return updatedBoard;
   }
 }
