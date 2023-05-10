@@ -3,6 +3,7 @@ import { CreateBoardRequestDto } from './dto/createBoard.request.dto';
 import { Board } from './board.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { UpdateBoardRequestDto } from './dto/updateBoard.request.dto';
 
 @Injectable()
 export class BoardService {
@@ -26,5 +27,21 @@ export class BoardService {
 
   getDetail(id: number | null): Promise<Board> {
     return this.boardRepository.findOneBy({ id });
+  }
+
+  async update(
+    id: number,
+    updateBoardRequestDto: UpdateBoardRequestDto,
+  ): Promise<Board> {
+    const { title, description } = updateBoardRequestDto;
+    const board = await this.boardRepository.findOne({ where: { id } });
+    if (title) {
+      board.title = title;
+    }
+    if (description) {
+      board.description = description;
+    }
+    const updatedBoard = await this.boardRepository.save(board);
+    return updatedBoard;
   }
 }

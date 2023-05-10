@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardRequestDto } from './dto/createBoard.request.dto';
 import { Board } from './board.entity';
 import { BoardDetailDto } from './dto/board-detail.dto';
+import { UpdateBoardRequestDto } from './dto/updateBoard.request.dto';
 
 @Controller('boards')
 export class BoardController {
@@ -21,5 +22,13 @@ export class BoardController {
   @Get(':id')
   async getDetail(@Param() boardDetailDto: BoardDetailDto): Promise<Board> {
     return await this.boardService.getDetail(boardDetailDto.id);
+  }
+
+  @Put(':id')
+  update(
+    @Param('id') id: number,
+    @Body() updateBoardRequestDto: UpdateBoardRequestDto,
+  ): Promise<Board> {
+    return this.boardService.update(id, updateBoardRequestDto);
   }
 }
