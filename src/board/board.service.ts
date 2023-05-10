@@ -47,4 +47,10 @@ export class BoardService {
     });
     return updatedBoard;
   }
+
+  async delete(id: number): Promise<void> {
+    await this.boardRepository.manager.transaction(async (manager) => {
+      await manager.softDelete(Board, id);
+    });
+  }
 }
