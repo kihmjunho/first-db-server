@@ -22,7 +22,7 @@ export class BoardService {
   }
 
   async getAll() {
-    return await this.boardRepository.find();
+    return await this.boardRepository.findAndCount({ take: 100 });
   }
 
   getDetail(id: number | null): Promise<Board> {
