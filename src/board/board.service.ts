@@ -25,7 +25,7 @@ export class BoardService {
     return await this.boardRepository.findAndCount({ take: 100 });
   }
 
-  getDetail(id: number | null): Promise<Board> {
+  getDetail(id: number): Promise<Board | null> {
     return this.boardRepository.findOneBy({ id });
   }
 
