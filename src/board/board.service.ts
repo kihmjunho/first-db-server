@@ -35,10 +35,10 @@ export class BoardService {
   ): Promise<Board> {
     const { title, description } = updateBoardRequestDto;
     const board = await this.boardRepository.findOne({ where: { id } });
-    if (title) {
+    if (board && title) {
       board.title = title;
     }
-    if (description) {
+    if (board && description) {
       board.description = description;
     }
     let updatedBoard;
