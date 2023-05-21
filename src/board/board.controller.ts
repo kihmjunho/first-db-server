@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -23,6 +24,7 @@ export class BoardController {
   }
 
   @Get()
+  @HttpCode(200)
   async getAll(): Promise<Board[]> {
     return await this.boardService.getAll();
   }
