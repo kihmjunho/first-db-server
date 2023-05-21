@@ -39,10 +39,13 @@ export class BoardService {
   ): Promise<Board> {
     const { title, description } = updateBoardRequestDto;
     const board = await this.boardRepository.findOne({ where: { id } });
-    if (board && title) {
+    if (!board) {
+      throw new NotFoundException('존재하지 않는 게시글입니다');
+    }
+    if (title) {
       board.title = title;
     }
-    if (board && description) {
+    if (description) {
       board.description = description;
     }
     let updatedBoard;
