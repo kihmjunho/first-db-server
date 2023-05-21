@@ -53,7 +53,7 @@ export class BoardController {
   }
 
   @Delete(':id')
-  @HttpCode(201)
+  @HttpCode(204)
   async delete(@Param('id') id: number): Promise<void> {
     await this.boardService.delete(id);
   }
