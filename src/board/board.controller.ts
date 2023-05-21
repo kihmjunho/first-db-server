@@ -23,7 +23,7 @@ export class BoardController {
   }
 
   @Get()
-  async getAll() {
+  async getAll(): Promise<Board[]> {
     return await this.boardService.getAll();
   }
 

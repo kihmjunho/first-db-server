@@ -21,8 +21,8 @@ export class BoardService {
     return savedBoard;
   }
 
-  async getAll() {
-    return await this.boardRepository.findAndCount({ take: 100 });
+  async getAll(): Promise<Board[]> {
+    return await this.boardRepository.find({ take: 100 });
   }
 
   getDetail(id: number): Promise<Board | null> {
