@@ -26,6 +26,7 @@ export class BoardController {
   }
 
   @Get()
+  @HttpCode(200)
   async getAll(): Promise<Board[]> {
     return await this.boardService.getAll();
   }
