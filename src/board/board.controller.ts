@@ -43,6 +43,7 @@ export class BoardController {
   }
 
   @Put(':id')
+  @HttpCode(200)
   async update(
     @Param('id') id: number,
     @Body() updateBoardRequestDto: UpdateBoardRequestDto,
