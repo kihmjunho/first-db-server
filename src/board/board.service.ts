@@ -56,8 +56,12 @@ export class BoardService {
   }
 
   async delete(id: number): Promise<void> {
+    const board = await this.boardRepository.findOne({ where: { id } });
+    if (!board) {
+      throw new NotFoundException('존재하지 않는 게시글입니다');
+    }
     await this.boardRepository.manager.transaction(async (manager) => {
-      await manager.softDelete(Board, id);
+      await manager.softDelete(Board, board.id);
     });
   }
 }

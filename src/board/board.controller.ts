@@ -33,15 +33,15 @@ export class BoardController {
   }
 
   @Put(':id')
-  update(
+  async update(
     @Param('id') id: number,
     @Body() updateBoardRequestDto: UpdateBoardRequestDto,
   ): Promise<Board> {
-    return this.boardService.update(id, updateBoardRequestDto);
+    return await this.boardService.update(id, updateBoardRequestDto);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: number): void {
-    this.boardService.delete(id);
+  async delete(@Param('id') id: number): Promise<void> {
+    await this.boardService.delete(id);
   }
 }
