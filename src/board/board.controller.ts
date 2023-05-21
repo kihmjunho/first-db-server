@@ -37,6 +37,7 @@ export class BoardController {
   }
 
   @Get(':id')
+  @HttpCode(200)
   async getDetail(@Param() boardDetailDto: BoardDetailDto): Promise<Board> {
     return await this.boardService.getDetail(boardDetailDto.id);
   }
