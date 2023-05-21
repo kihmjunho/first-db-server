@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardRequestDto } from './dto/createBoard.request.dto';
@@ -25,6 +26,11 @@ export class BoardController {
   @Get()
   async getAll(): Promise<Board[]> {
     return await this.boardService.getAll();
+  }
+
+  @Get('search')
+  async search(@Query('query') query: string): Promise<Board[]> {
+    return await this.boardService.search(query);
   }
 
   @Get(':id')

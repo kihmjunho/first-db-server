@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBoardRequestDto } from './dto/createBoard.request.dto';
 import { Board } from './board.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { UpdateBoardRequestDto } from './dto/updateBoard.request.dto';
 
 @Injectable()
@@ -62,6 +62,18 @@ export class BoardService {
     }
     await this.boardRepository.manager.transaction(async (manager) => {
       await manager.softDelete(Board, board.id);
+    });
+  }
+
+  async search(query: string): Promise<Board[]> {
+    return await this.boardRepository.find({
+      where: {
+        title: Like(`%${query}`),
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+      take: 100,
     });
   }
 }
