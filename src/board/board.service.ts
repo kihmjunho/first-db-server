@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBoardRequestDto } from './dto/createBoard.request.dto';
 import { Board } from './board.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -25,8 +25,12 @@ export class BoardService {
     return await this.boardRepository.find({ take: 100 });
   }
 
-  getDetail(id: number): Promise<Board | null> {
-    return this.boardRepository.findOneBy({ id });
+  async getDetail(id: number): Promise<Board> {
+    const board = await this.boardRepository.findOneBy({ id });
+    if (!board) {
+      throw new NotFoundException('존재하지 않는 게시글입니다');
+    }
+    return board;
   }
 
   async update(

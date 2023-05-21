@@ -28,9 +28,7 @@ export class BoardController {
   }
 
   @Get(':id')
-  async getDetail(
-    @Param() boardDetailDto: BoardDetailDto,
-  ): Promise<Board | null> {
+  async getDetail(@Param() boardDetailDto: BoardDetailDto): Promise<Board> {
     return await this.boardService.getDetail(boardDetailDto.id);
   }
 
