@@ -32,6 +32,7 @@ export class BoardController {
   }
 
   @Get('search')
+  @HttpCode(200)
   async search(@Query('query') query: string): Promise<Board[]> {
     return await this.boardService.search(query);
   }
