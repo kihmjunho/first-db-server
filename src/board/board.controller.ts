@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -19,6 +20,7 @@ export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
   @Post()
+  @HttpCode(201)
   async create(@Body() createBoardRequestDto: CreateBoardRequestDto) {
     return await this.boardService.create(createBoardRequestDto);
   }
