@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   // BadRequestException,
   Injectable,
   NotFoundException,
@@ -71,6 +72,11 @@ export class BoardService {
   }
 
   async search(query: string): Promise<Board[]> {
+    if (query.trim().length < 1) {
+      throw new BadRequestException(
+        '검색 키워는드는 공백을 제외하고 한 글자 이상이어야 합니다',
+      );
+    }
     return await this.boardRepository.find({
       where: {
         title: Like(`%${query}`),
