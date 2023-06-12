@@ -8,6 +8,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardRequestDto } from './dto/createBoard.request.dto';
@@ -15,12 +16,14 @@ import { Board } from './board.entity';
 import { BoardDetailDto } from './dto/board-detail.dto';
 import { UpdateBoardRequestDto } from './dto/updateBoard.request.dto';
 import { ApiCreatedResponse, ApiOperation } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../config/jwt/jwtAuth.guard';
 
 @Controller('boards')
 export class BoardController {
   constructor(private readonly boardService: BoardService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: '게시물 생성 API',
     description: '게시물을 생성한다.',
